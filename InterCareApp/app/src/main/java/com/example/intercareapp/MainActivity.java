@@ -18,7 +18,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        organizationNames = new ArrayList();
+        organizationNames = new ArrayList<String>();
+        organizationNames.add("Bobs Juice Bar");
+        organizationNames.add("Rollos Bokseklub");
+        organizationNames.add("De fem fede sømænd");
         organizationNames.add("Bobs Juice Bar");
         organizationNames.add("Rollos Bokseklub");
         organizationNames.add("De fem fede sømænd");
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.organizationNames);
         this.organizationsRecycleView.setAdapter(myAdapter);
-        this.organizationsRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
     }
 

@@ -28,13 +28,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+        View view = inflater.inflate(R.layout.organization_name_row, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
     holder.organizationNameText.setText(organizationNamesList.get(position));
     }
 
