@@ -55,7 +55,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View view) {
-
+            System.out.println("You have clicked position: " + getAdapterPosition());
+            organizationNamesList.remove(getAdapterPosition());
+            notifyDataSetChanged();
         }
     }
 }

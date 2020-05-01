@@ -19,12 +19,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         organizationNames = new ArrayList<String>();
-        organizationNames.add("Bobs Juice Bar");
-        organizationNames.add("Rollos Bokseklub");
-        organizationNames.add("De fem fede sømænd");
-        organizationNames.add("Bobs Juice Bar");
-        organizationNames.add("Rollos Bokseklub");
-        organizationNames.add("De fem fede sømænd");
+        organizationNames.add("Aleris-Hamlet Privathospital");
+        organizationNames.add("Capio CFR Odense");
+        organizationNames.add("PrivatHospitalet H. C. Andersen");
+        organizationNames.add("Privathospitalet Mølholm");
+        organizationNames.add("Aleris-Hamlet Privathospital");
+        organizationNames.add("Capio CFR Odense");
+        organizationNames.add("PrivatHospitalet H. C. Andersen");
+        organizationNames.add("Privathospitalet Mølholm");
+        organizationNames.add("Aleris-Hamlet Privathospital");
+        organizationNames.add("Capio CFR Odense");
+        organizationNames.add("PrivatHospitalet H. C. Andersen");
+        organizationNames.add("Privathospitalet Mølholm");
+        organizationNames.add("Aleris-Hamlet Privathospital");
+        organizationNames.add("Capio CFR Odense");
+
+
 
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.organizationNames);
