@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<Organization> organizationNamesList;
     ArrayList<Organization> organizationNamesListOrdered;
+    Fragment organizationList;
 
 
     public MyAdapter(Context context, ArrayList<Organization> organizationNamesList) {
@@ -63,6 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             organizationNameText = itemView.findViewById(R.id.organizationName);
             organizationImage = itemView.findViewById(R.id.organizationIcon);
             searchField = (EditText) ((Activity) context).findViewById(R.id.searchField);
+
             searchField.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

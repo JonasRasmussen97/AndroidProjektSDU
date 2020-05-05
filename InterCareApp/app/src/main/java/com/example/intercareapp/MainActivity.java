@@ -25,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         organizations = new ArrayList<Organization>();
         organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+
 
 
         this.searchField = (EditText) findViewById(R.id.searchField);
@@ -32,7 +42,5 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter myAdapter = new MyAdapter(this, this.organizations);
         this.organizationsRecycleView.setAdapter(myAdapter);
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
-
-
     }
 }
