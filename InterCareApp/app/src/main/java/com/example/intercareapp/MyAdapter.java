@@ -14,16 +14,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<String> organizationNamesList;
-    ArrayList<String> organizationNamesListOrdered;
+    ArrayList<Organization> organizationNamesList;
+    ArrayList<Organization> organizationNamesListOrdered;
 
 
-    public MyAdapter(Context context, ArrayList<String> organizationNamesList) {
+    public MyAdapter(Context context, ArrayList<Organization> organizationNamesList) {
         this.context = context;
         this.organizationNamesList = organizationNamesList;
     }
@@ -39,7 +41,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-    holder.organizationNameText.setText(organizationNamesList.get(position));
+    holder.organizationNameText.setText(organizationNamesList.get(position).getName());
+    Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/500/500/", position)).into(holder.organizationImage);
     }
 
     @Override
@@ -50,6 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView organizationNameText;
+        ImageView organizationImage;
         EditText searchField;
         Context context;
 
@@ -57,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             this.context = context;
             organizationNameText = itemView.findViewById(R.id.organizationName);
+            organizationImage = itemView.findViewById(R.id.organizationIcon);
             searchField = (EditText) ((Activity) context).findViewById(R.id.searchField);
             searchField.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -66,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (organizationNamesList.contains(charSequence.toString())) {
+                   /* if (organizationNamesList.contains(charSequence.toString())) {
                         organizationNamesListOrdered = (ArrayList<String>) organizationNamesList.clone();
                         organizationNamesList.clear();
                         organizationNamesList.add(charSequence.toString());
@@ -76,6 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             organizationNamesList = (ArrayList<String>) organizationNamesListOrdered.clone();
                             notifyDataSetChanged();
                         }
+                        */
                     }
 
 

@@ -17,32 +17,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView organizationsRecycleView;
-    private ArrayList<String> organizationNames;
+    private ArrayList<Organization> organizations;
     private EditText searchField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        organizationNames = new ArrayList<String>();
-        organizationNames.add("Aleris-Hamlet Privathospital");
-        organizationNames.add("Capio CFR Odense");
-        organizationNames.add("PrivatHospitalet H. C. Andersen");
-        organizationNames.add("Privathospitalet Mølholm");
-        organizationNames.add("Aleris-Hamlet Privathospital");
-        organizationNames.add("Capio CFR Odense");
-        organizationNames.add("PrivatHospitalet H. C. Andersen");
-        organizationNames.add("Privathospitalet Mølholm");
-        organizationNames.add("Aleris-Hamlet Privathospital");
-        organizationNames.add("Capio CFR Odense");
-        organizationNames.add("PrivatHospitalet H. C. Andersen");
-        organizationNames.add("Privathospitalet Mølholm");
-        organizationNames.add("Aleris-Hamlet Privathospital");
-        organizationNames.add("Capio CFR Odense");
+        organizations = new ArrayList<Organization>();
+        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
 
 
         this.searchField = (EditText) findViewById(R.id.searchField);
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
-        MyAdapter myAdapter = new MyAdapter(this, this.organizationNames);
+        MyAdapter myAdapter = new MyAdapter(this, this.organizations);
         this.organizationsRecycleView.setAdapter(myAdapter);
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
