@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -13,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView organizationsRecycleView;
     private ArrayList<String> organizationNames;
-
+    private EditText searchField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
         organizationNames.add("Capio CFR Odense");
 
 
-
+        this.searchField = (EditText) findViewById(R.id.searchField);
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.organizationNames);
         this.organizationsRecycleView.setAdapter(myAdapter);
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
+
     }
-
-
-
 }
