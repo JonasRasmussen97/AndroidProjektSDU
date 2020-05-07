@@ -24,16 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         organizations = new ArrayList<Organization>();
-        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Møens Klint", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
-        organizations.add(new Organization("Abe", "Bananvej 22", "Email@test.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("H.C. Andersen Klinikken", "Langelinie 29, 5230 Odense", "Andersen@klinik.dk", 10, new String[]{"Brystløft", "Botox", "Ny hofte", "Pandeløft"}));
+        organizations.add(new Organization("Capio CFR Odense", "Pantheonsgade 25, 5000 Odense", "Capio@odense.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+        organizations.add(new Organization("Privathospitalet Mølholm", "Brummersvej 1, 7100 Vejle", "Mølholm@klinik.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
 
 
 

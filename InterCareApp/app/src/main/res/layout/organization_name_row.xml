@@ -27,14 +27,15 @@
 
     <TextView
         android:id="@+id/organizationName"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_weight="1"
         android:textColor="#151515"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/organizationIcon"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507"
         tools:text="Hej" />
 </androidx.constraintlayout.widget.ConstraintLayout>

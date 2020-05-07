@@ -2,6 +2,7 @@ package com.example.intercareapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<Organization> organizationNamesList;
     ArrayList<Organization> organizationNamesListOrdered;
-    Fragment organizationList;
+
 
 
     public MyAdapter(Context context, ArrayList<Organization> organizationNamesList) {
@@ -49,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return organizationNamesList.size();
+            return organizationNamesList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -100,9 +101,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View view) {
-            System.out.println("You have clicked position: " + getAdapterPosition());
-            organizationNamesList.remove(getAdapterPosition());
-            notifyDataSetChanged();
+            Intent intent = new Intent(context, organizationDetailsActivity.class);
+            Organization organizationClicked = organizationNamesList.get(getAdapterPosition());
+            intent.putExtra("organizationName", organizationClicked.getName());
+            intent.putExtra("organizationAddress", organizationClicked.getAddress());
+            intent.putExtra("organizationEmail", organizationClicked.getEmail());
+            intent.putExtra("organizationRating", organizationClicked.getRating());
+            intent.putExtra("organizationTreatments", organizationClicked.getTreatments());
+            context.startActivity(intent);
+
+
         }
 
 
