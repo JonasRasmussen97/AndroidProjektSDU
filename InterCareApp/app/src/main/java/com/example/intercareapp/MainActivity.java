@@ -15,7 +15,6 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView organizationsRecycleView;
     private ArrayList<Organization> organizations;
     private EditText searchField;

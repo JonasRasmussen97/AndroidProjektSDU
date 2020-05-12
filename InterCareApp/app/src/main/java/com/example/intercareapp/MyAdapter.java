@@ -67,6 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             organizationImage = itemView.findViewById(R.id.organizationIcon);
             searchField = (EditText) ((Activity) context).findViewById(R.id.searchField);
 
+
             searchField.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
