@@ -3,6 +3,7 @@ package com.example.intercareapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -29,7 +30,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Executing queries using execSQL()
-        db.execSQL(" CREATE TABLE " + TABLE_NAME + "( "
+
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( "
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_NAME + " TEXT, "
                 + COL_ADDRESS + " TEXT, "
@@ -40,7 +42,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE "+ TABLE_NAME);
         onCreate(db);
     }
 
@@ -49,22 +51,23 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Creates a new map of values, where column name is key
-        ContentValues values = new ContentValues();
-        values.put(COL_NAME, name);
-        values.put(COL_ADDRESS, address);
-        values.put(COL_EMAIL, email);
-        values.put(COL_RATING, rating);
-        values.put(COL_TREATMENTS, treatments);
-        // Insert column values
-        long result = db.insert(TABLE_NAME, null, values);
-        db.close();
-        // Checks if the insert method fails. If it does, -1 is returned.
-        if(result == -1){
-            return false;
 
-        }else {
-            return true;
-        }
+            ContentValues values = new ContentValues();
+            values.put(COL_NAME, name);
+            values.put(COL_ADDRESS, address);
+            values.put(COL_EMAIL, email);
+            values.put(COL_RATING, rating);
+            values.put(COL_TREATMENTS, treatments);
+            // Insert column values
+            long result = db.insert(TABLE_NAME, null, values);
+            db.close();
+            // Checks if the insert method fails. If it does, -1 is returned.
+            if (result == -1) {
+                return false;
+
+            } else {
+                return true;
+            }
 
     }
 
@@ -78,7 +81,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Organization getOrganizationDetailsByName(String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_NAME. + "=" + name,  null );
+        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_NAME + "=" + "'" + name + "'",  null );
 
         System.out.println(data);
 
@@ -100,13 +103,19 @@ public class Database extends SQLiteOpenHelper {
         return new Organization(val1, val2, val3, val4, val5);
     }
 
+    public long getOrganizationsCount(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        return count;
+    }
+
+
     public static String stringSeparator = ", ";
 
+    // Used to convert treatments string from database to String[]
     public static String[] convertStringToArray(String str){
         String[] treatments = str.split(stringSeparator);
         return treatments;
     }
-
-
 
 }

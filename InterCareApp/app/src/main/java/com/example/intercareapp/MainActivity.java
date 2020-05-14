@@ -32,11 +32,18 @@ public class MainActivity extends AppCompatActivity {
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
 
         db = new Database(getApplicationContext());
-        AddDataToDB();
 
+        // Ensures that the same data hardcoded into organizations list is not duplicated,
+        // for demonstration only.
+        if(db.getOrganizationsCount() != organizations.size()) {
+            AddDataToDB();
+        }
         /*btn = findViewById(R.id.viewAllButton);
         viewAll();
         */
+        System.out.println(db.getOrganizationDetailsByName("Capio CFR Odense").getAddress());
+        System.out.println(db.getOrganizationsCount());
+
     }
 
     public void AddDataToDB(){
