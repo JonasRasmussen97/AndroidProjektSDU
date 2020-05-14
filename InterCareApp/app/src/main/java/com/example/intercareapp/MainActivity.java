@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         organizations.add(new Organization("Privathospitalet Mølholm", "Brummersvej 1, 7100 Vejle", "Mølholm@klinik.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
 
 
-
         this.searchField = (EditText) findViewById(R.id.searchField);
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.organizations);

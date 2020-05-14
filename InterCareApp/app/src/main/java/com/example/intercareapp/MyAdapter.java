@@ -13,18 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<Organization> organizationNamesList;
     ArrayList<Organization> organizationNamesListOrdered;
+    Random rand = new Random();
 
 
 
@@ -45,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
     holder.organizationNameText.setText(organizationNamesList.get(position).getName());
-    Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/500/500/", position)).into(holder.organizationImage);
+    Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/id/" + rand.nextInt(100) + "/500/500")).into(holder.organizationImage);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, organizationDetailsActivity.class);
+            Intent intent = new Intent(context, OrganizationDetailsActivity.class);
             Organization organizationClicked = organizationNamesList.get(getAdapterPosition());
             intent.putExtra("organizationName", organizationClicked.getName());
             intent.putExtra("organizationAddress", organizationClicked.getAddress());

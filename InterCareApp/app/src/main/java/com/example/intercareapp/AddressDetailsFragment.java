@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,7 +24,7 @@ import org.json.JSONObject;
 
 
 
-public class addressDetailsFragment extends Fragment {
+public class AddressDetailsFragment extends Fragment {
     String APIurl;
     RequestQueue queue;
     Intent intent;
@@ -34,8 +35,9 @@ public class addressDetailsFragment extends Fragment {
     TextView statusTV;
     TextView latTV;
     TextView lonTV;
+    Button backButton;
     private View rootView;
-    public addressDetailsFragment() {
+    public AddressDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -58,6 +60,7 @@ public class addressDetailsFragment extends Fragment {
         latTV = rootView.findViewById(R.id.latTV);
         lonTV = rootView.findViewById(R.id.lonTV);
         statusTV = rootView.findViewById(R.id.statusTV);
+        backButton = rootView.findViewById(R.id.backToMainButton);
         // Request a string response from the provided URL.
         intent = this.getActivity().getIntent();
         APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + intent.getStringExtra("organizationAddress");
@@ -94,7 +97,15 @@ public class addressDetailsFragment extends Fragment {
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // We replace the current fragment with the previous one that the user came from.
+                getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new OrganizationFragment()).addToBackStack(null).commit();
 
+
+            }
+        });
         return rootView;
     }
 }
