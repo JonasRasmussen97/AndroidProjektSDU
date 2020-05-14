@@ -69,11 +69,44 @@ public class Database extends SQLiteOpenHelper {
     }
 
     // Cursor class provides access to the results set return by a db query
-    public Cursor getAllData(){
+    public Cursor getAllOrganizations(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("select * , FROM" + TABLE_NAME, null);
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
 
     }
+
+    public Organization getOrganizationDetailsByName(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_NAME. + "=" + name,  null );
+
+        System.out.println(data);
+
+        String val1 = null;
+        String val2 = null;
+        String val3 = null;
+        int val4 = 0;
+        String[] val5 = null;
+
+        while(data.moveToNext()){
+            val1 = data.getString(1);
+            val2 = data.getString(2);
+            val3 = data.getString(3);
+            val4 = Integer.parseInt(data.getString(4));
+            val5 = convertStringToArray(data.getString(5));
+
+        }
+
+        return new Organization(val1, val2, val3, val4, val5);
+    }
+
+    public static String stringSeparator = ", ";
+
+    public static String[] convertStringToArray(String str){
+        String[] treatments = str.split(stringSeparator);
+        return treatments;
+    }
+
+
 
 }
