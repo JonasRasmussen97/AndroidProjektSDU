@@ -19,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Hardcoded data used as dummy data to put into the database. We do this to allow for proof of concept of the database requirement.
         organizations = new ArrayList<Organization>();
         organizations.add(new Organization("H.C. Andersen Klinikken", "Langelinie 29, 5230 Odense", "Andersen@klinik.dk", 10, new String[]{"Brystløft", "Botox", "Ny hofte", "Pandeløft"}));
         organizations.add(new Organization("Capio CFR Odense", "Pantheonsgade 25, 5000 Odense", "Capio@odense.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
         organizations.add(new Organization("Privathospitalet Mølholm", "Brummersvej 1, 7100 Vejle", "Mølholm@klinik.dk", 0, new String[]{"Volvo", "BMW", "Ford", "Mazda"}));
+
 
 
         this.searchField = (EditText) findViewById(R.id.searchField);
