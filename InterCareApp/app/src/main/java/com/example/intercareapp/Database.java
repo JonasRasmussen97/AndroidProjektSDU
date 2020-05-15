@@ -79,9 +79,13 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public Organization getOrganizationDetailsByName(String name){
+
+
+
+
+    public Organization getOrganizationDetailsById(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_NAME + "=" + "'" + name + "'",  null );
+        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_ID + "=" + "'" + id + "'",  null );
 
         System.out.println(data);
 
@@ -102,6 +106,7 @@ public class Database extends SQLiteOpenHelper {
 
         return new Organization(val1, val2, val3, val4, val5);
     }
+
 
     public long getOrganizationsCount(){
         SQLiteDatabase db = this.getReadableDatabase();
