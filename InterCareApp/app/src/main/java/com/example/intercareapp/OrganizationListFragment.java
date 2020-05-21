@@ -25,6 +25,7 @@ public class OrganizationListFragment extends Fragment {
 
     public OrganizationListFragment() {
         // Required empty public constructor
+
     }
 
     @Override

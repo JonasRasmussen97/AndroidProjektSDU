@@ -40,6 +40,7 @@ public class AddressDetailsFragment extends Fragment {
     private View rootView;
     public AddressDetailsFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -51,7 +52,7 @@ public class AddressDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_address_details, container, false);
         queue = Volley.newRequestQueue(getContext());
         streetTV = rootView.findViewById(R.id.streetTV);
@@ -98,71 +99,69 @@ public class AddressDetailsFragment extends Fragment {
             });
 
 
-// Add the request to the RequestQueue.
+            // Add the request to the RequestQueue.
             queue.add(stringRequest);
             backButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // We replace the current fragment with the previous one that the user came from.
                     getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new OrganizationFragment()).addToBackStack(null).commit();
-
-
                 }
             });
         } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             OrganizationFragment org = (OrganizationFragment) getFragmentManager().findFragmentByTag("replacedOrganization");
-            APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + org.getOrganizationAddress().getText();
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject obj = new JSONObject(response);
-                                JSONArray obj2 = obj.getJSONArray("results");
-                                JSONObject obj3 = obj2.getJSONObject(0);
-                                JSONArray obj4 = obj3.getJSONArray("locations");
-                                JSONObject obj5 = obj4.getJSONObject(0);
-                                JSONObject obj6 = obj5.getJSONObject("latLng");
-                                latTV.setText(obj6.get("lat").toString());
-                                lonTV.setText(obj6.get("lng").toString());
-                                streetTV.setText(obj5.get("street").toString());
-                                municipalityTV.setText(obj5.get("adminArea4").toString());
-                                regionTV.setText(obj5.get("adminArea3").toString());
-                                postalCodeTV.setText(obj5.get("postalCode").toString());
-                                statusTV.setText("Successfully fetched data!");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                statusTV.setText("Unable to fetch data. Please try again later!");
+            // We check if the organization is null before requesting volley to make the API call.
+            // This is because in some cases, when users rotate the device, then the organization might be null and the view is reset.
+            if (org == null) {
+                Intent i = new Intent(getContext(), MainActivity.class);
+                getContext().startActivity(i);
+            } else {
+                APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + org.getOrganizationAddress().getText();
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray obj2 = obj.getJSONArray("results");
+                                    JSONObject obj3 = obj2.getJSONObject(0);
+                                    JSONArray obj4 = obj3.getJSONArray("locations");
+                                    JSONObject obj5 = obj4.getJSONObject(0);
+                                    JSONObject obj6 = obj5.getJSONObject("latLng");
+                                    latTV.setText(obj6.get("lat").toString());
+                                    lonTV.setText(obj6.get("lng").toString());
+                                    streetTV.setText(obj5.get("street").toString());
+                                    municipalityTV.setText(obj5.get("adminArea4").toString());
+                                    regionTV.setText(obj5.get("adminArea3").toString());
+                                    postalCodeTV.setText(obj5.get("postalCode").toString());
+                                    statusTV.setText("Successfully fetched data!");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    statusTV.setText("Unable to fetch data. Please try again later!");
+                                }
                             }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                    statusTV.setText("Unable to fetch data. Please try again later!");
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                        statusTV.setText("Unable to fetch data. Please try again later!");
 
-                }
-            });
+                    }
+                });
 
 
 // Add the request to the RequestQueue.
-            queue.add(stringRequest);
+                queue.add(stringRequest);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // We replace the current fragment with the previous one that the user came from.
+                        getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack(null).commit();
+                    }
+                });
 
 
-
-
-            backButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // We replace the current fragment with the previous one that the user came from.
-                    getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack(null).commit();
-                }
-            });
-
-
-
-
-
+            }
         }
         return rootView;
     }

@@ -12,6 +12,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_organization_details);
         // We add the fragment programmatically to allow us to replace it later.
         getSupportFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new OrganizationFragment()).addToBackStack(null).commit();
+
     }
 
 

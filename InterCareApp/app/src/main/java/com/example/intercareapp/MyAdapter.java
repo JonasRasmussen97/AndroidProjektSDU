@@ -53,6 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
     holder.organizationNameText.setText(organizationNamesList.get(position).getName());
     Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/id/" + rand.nextInt(100) + "/500/500")).into(holder.organizationImage);
+
     }
 
     @Override
@@ -74,10 +75,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             organizationNameText = itemView.findViewById(R.id.organizationName);
             organizationImage = itemView.findViewById(R.id.organizationIcon);
 
-
-
             itemView.setOnClickListener(this);
         }
+
 
 
         @Override
@@ -103,7 +103,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 organizationDetailsFragment.setOrganizationRating(Integer.toString(organizationClicked.getRating()));
                 organizationDetailsFragment.setOrganizationTreatments(organizationClicked.getTreatments());
                 }
-
             }
 
 

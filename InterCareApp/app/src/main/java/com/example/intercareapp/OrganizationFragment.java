@@ -84,7 +84,19 @@ public class OrganizationFragment extends Fragment {
 
         // Here we implement what should happen if the orientation is landscape.
         } else if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
+            // We add this check to ensure that users didn't rotate to landscape in the middle of address details.
+            // If users rotate in the middle of address details in portrait, then they might see another screen and then we go back to mainActivity.
+            if(getActivity().findViewById(R.id.organizationDetailsLayoutLand) == null) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         addressDetailsButton.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +106,8 @@ public class OrganizationFragment extends Fragment {
         if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new AddressDetailsFragment()).addToBackStack(null).commit();
         } else if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new AddressDetailsFragment()).addToBackStack(null).commit();
+        getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new AddressDetailsFragment()).addToBackStack(null).commit();
         }
-
             }
         });
        
