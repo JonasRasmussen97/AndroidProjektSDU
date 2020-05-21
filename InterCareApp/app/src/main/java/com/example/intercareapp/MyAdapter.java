@@ -73,37 +73,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             this.context = context;
             organizationNameText = itemView.findViewById(R.id.organizationName);
             organizationImage = itemView.findViewById(R.id.organizationIcon);
-            searchField = (EditText) ((Activity) context).findViewById(R.id.searchField);
-
-
-            searchField.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                   /* if (organizationNamesList.contains(charSequence.toString())) {
-                        organizationNamesListOrdered = (ArrayList<String>) organizationNamesList.clone();
-                        organizationNamesList.clear();
-                        organizationNamesList.add(charSequence.toString());
-                        notifyDataSetChanged();
-                    }
-                    if((organizationNamesList.contains(charSequence.toString()) == false) && organizationNamesListOrdered != null) {
-                            organizationNamesList = (ArrayList<String>) organizationNamesListOrdered.clone();
-                            notifyDataSetChanged();
-                        }
-                        */
-                    }
 
 
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
             itemView.setOnClickListener(this);
         }
 
@@ -123,9 +95,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 // If it is landscape we have the organization details fragment in same activity and we change the values through supportFragmentManager without intent needed.
             } else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 Organization organizationClicked = organizationNamesList.get(getAdapterPosition());
-                organizationDetailsFragment = (OrganizationFragment) ((AppCompatActivity)context).getSupportFragmentManager().findFragmentById(R.id.fragment2);
-                if (organizationDetailsFragment != null) {
-                    organizationDetailsFragment.setOrganizationName(organizationClicked.getName());
+                // This fragment is added in MainActivity onCreate(). We find it by the tag and set the details.
+                organizationDetailsFragment = (OrganizationFragment) ((AppCompatActivity)context).getSupportFragmentManager().findFragmentByTag("replacedOrganization");
+                organizationDetailsFragment.setOrganizationName(organizationClicked.getName());
                 organizationDetailsFragment.setOrganizationEmail(organizationClicked.getEmail());
                 organizationDetailsFragment.setOrganizationAddress(organizationClicked.getAddress());
                 organizationDetailsFragment.setOrganizationRating(Integer.toString(organizationClicked.getRating()));
@@ -140,4 +112,3 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     }
-}

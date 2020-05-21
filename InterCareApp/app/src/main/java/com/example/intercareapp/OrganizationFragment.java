@@ -66,8 +66,10 @@ public class OrganizationFragment extends Fragment {
             organizationAddress.setText(intent.getStringExtra("organizationAddress"));
             organizationEmail.setText(intent.getStringExtra("organizationEmail"));
             organizationRating.setText(Integer.toString(intent.getIntExtra("organizationRating", 0)));
-            for (int i = 0; i < intent.getStringArrayExtra("organizationTreatments").length; i++) {
-                treatments += intent.getStringArrayExtra("organizationTreatments")[i] + ", ";
+            if(intent.getStringArrayExtra("organizationTreatments") != null) {
+                for (int i = 0; i < intent.getStringArrayExtra("organizationTreatments").length; i++) {
+                    treatments += intent.getStringArrayExtra("organizationTreatments")[i] + ", ";
+                }
             }
             organizationTreatments.setText(treatments);
 
@@ -89,7 +91,12 @@ public class OrganizationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Replace current fragment with new fragment upon clicking on address details.
-                getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new AddressDetailsFragment()).addToBackStack(null).commit();
+        if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new AddressDetailsFragment()).addToBackStack(null).commit();
+        } else if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new AddressDetailsFragment()).addToBackStack(null).commit();
+        }
+
             }
         });
        

@@ -1,5 +1,6 @@
 package com.example.intercareapp;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.EditText;
 
@@ -37,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
         dbOrganizationsList = new ArrayList<>();
         dbOrganizationsList = getDbOrganizationsList();
 
-        this.searchField = (EditText) findViewById(R.id.searchField);
+
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.dbOrganizationsList);
         this.organizationsRecycleView.setAdapter(myAdapter);
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
-
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack("").commit();
+        }
     }
 
     // Adding data to database from hardcoded arraylist "organizations" of type Organization
