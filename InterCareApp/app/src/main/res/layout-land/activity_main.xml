@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
         android:text="Organizations"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -23,11 +22,12 @@
         android:id="@+id/InterCare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="InterCare"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,11 +35,8 @@
         android:id="@+id/organizationListFragment"
         android:name="com.example.intercareapp.OrganizationListFragment"
         android:layout_width="338dp"
-        android:layout_height="287dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OrganizationsHeader"
@@ -49,7 +46,7 @@
     <FrameLayout
         android:id="@+id/organizationDetailsLayoutLand"
         android:layout_width="358dp"
-        android:layout_height="313dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="8dp"
@@ -59,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/organizationListFragment"
-        app:layout_constraintTop_toBottomOf="@+id/InterCare">
+        app:layout_constraintTop_toTopOf="@+id/organizationListFragment">
 
     </FrameLayout>
 
