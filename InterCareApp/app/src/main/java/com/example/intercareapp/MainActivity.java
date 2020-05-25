@@ -3,19 +3,16 @@ package com.example.intercareapp;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView organizationsRecycleView;
     private ArrayList<Organization> organizations;
     private ArrayList<Organization> dbOrganizationsList;
-    private EditText searchField;
-    Database db;
+    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +29,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Ensures that the same data hardcoded into organizations list is not duplicated,
         // for demonstration only.
-        if(db.getOrganizationsCount() != organizations.size()) {
+        if (db.getOrganizationsCount() != organizations.size()) {
             AddDataToDB();
         }
         dbOrganizationsList = new ArrayList<>();
         dbOrganizationsList = getDbOrganizationsList();
 
-
         this.organizationsRecycleView = findViewById(R.id.organizationsRecycleView);
         MyAdapter myAdapter = new MyAdapter(this, this.dbOrganizationsList);
         this.organizationsRecycleView.setAdapter(myAdapter);
         this.organizationsRecycleView.setLayoutManager(new GridLayoutManager(this, 2));
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getSupportFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack("").commit();
         }
     }
 
     // Adding data to database from hardcoded arraylist "organizations" of type Organization
-    public void AddDataToDB(){
-        for (Organization org : organizations){
+    public void AddDataToDB() {
+        for (Organization org : organizations) {
 
             boolean isInserted = db.insertData(
                     org.getName(),
@@ -59,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     org.getRating(),
                     convertArrayToString(org.getTreatments()));
 
-            if (isInserted == true){
+            if (isInserted == true) {
                 System.out.println("Data inserted");
-            } else{
+            } else {
                 System.out.println("Failure in inserting data");
             }
 
@@ -71,13 +67,14 @@ public class MainActivity extends AppCompatActivity {
     // Method taking each treatment string from the treatment array, forming one string to be put
     // into the treatments column in the database.
     public static String stringSeparator = ", ";
-    public static String convertArrayToString(String[] treatments){
+
+    public static String convertArrayToString(String[] treatments) {
         String str = "";
-        for (int i = 0; i < treatments.length; i++){
-            str = str+treatments[i];
+        for (int i = 0; i < treatments.length; i++) {
+            str = str + treatments[i];
             // Do not append comma for last element
-            if(i<treatments.length-1){
-                str = str+stringSeparator;
+            if (i < treatments.length - 1) {
+                str = str + stringSeparator;
             }
         }
         return str;
@@ -85,9 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Retrieves all organizations from the database, and inserts them into the dbOrganizationList
     // used by MyAdapter
-    public ArrayList<Organization> getDbOrganizationsList(){
-
-        for(int i = 1; i <= db.getOrganizationsCount(); i++){
+    public ArrayList<Organization> getDbOrganizationsList() {
+        for (int i = 1; i <= db.getOrganizationsCount(); i++) {
             dbOrganizationsList.add(db.getOrganizationDetailsById(i));
         }
         return dbOrganizationsList;

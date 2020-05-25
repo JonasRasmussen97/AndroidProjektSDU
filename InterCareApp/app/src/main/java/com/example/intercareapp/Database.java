@@ -23,14 +23,12 @@ public class Database extends SQLiteOpenHelper {
 
 
     public Database(@Nullable Context context) {
-
         super(context, DB_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Executing queries using execSQL()
-
         db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( "
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_NAME + " TEXT, "
@@ -38,56 +36,48 @@ public class Database extends SQLiteOpenHelper {
                 + COL_EMAIL + " TEXT, "
                 + COL_RATING + " INTEGER, "
                 + COL_TREATMENTS + " TEXT ); ");
-        }
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE "+ TABLE_NAME);
+        db.execSQL("DROP TABLE " + TABLE_NAME);
         onCreate(db);
     }
 
-    public boolean insertData(String name, String address, String email, int rating, String treatments){
+    public boolean insertData(String name, String address, String email, int rating, String treatments) {
         // Creates db with table
         SQLiteDatabase db = this.getWritableDatabase();
-
         // Creates a new map of values, where column name is key
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME, name);
+        values.put(COL_ADDRESS, address);
+        values.put(COL_EMAIL, email);
+        values.put(COL_RATING, rating);
+        values.put(COL_TREATMENTS, treatments);
+        // Insert column values
+        long result = db.insert(TABLE_NAME, null, values);
+        db.close();
+        // Checks if the insert method fails. If it does, -1 is returned.
+        if (result == -1) {
+            return false;
 
-            ContentValues values = new ContentValues();
-            values.put(COL_NAME, name);
-            values.put(COL_ADDRESS, address);
-            values.put(COL_EMAIL, email);
-            values.put(COL_RATING, rating);
-            values.put(COL_TREATMENTS, treatments);
-            // Insert column values
-            long result = db.insert(TABLE_NAME, null, values);
-            db.close();
-            // Checks if the insert method fails. If it does, -1 is returned.
-            if (result == -1) {
-                return false;
-
-            } else {
-                return true;
-            }
+        } else {
+            return true;
+        }
 
     }
 
     // Cursor class provides access to the results set return by a db query
-    public Cursor getAllOrganizations(){
+    public Cursor getAllOrganizations() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
 
     }
 
-
-
-
-
-    public Organization getOrganizationDetailsById(int id){
+    public Organization getOrganizationDetailsById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_ID + "=" + "'" + id + "'",  null );
-
-        System.out.println(data);
+        Cursor data = db.rawQuery("SELECT * FROM  " + TABLE_NAME + " WHERE " + COL_ID + "=" + "'" + id + "'", null);
 
         String val1 = null;
         String val2 = null;
@@ -95,30 +85,25 @@ public class Database extends SQLiteOpenHelper {
         int val4 = 0;
         String[] val5 = null;
 
-        while(data.moveToNext()){
+        while (data.moveToNext()) {
             val1 = data.getString(1);
             val2 = data.getString(2);
             val3 = data.getString(3);
             val4 = Integer.parseInt(data.getString(4));
             val5 = convertStringToArray(data.getString(5));
-
         }
-
         return new Organization(val1, val2, val3, val4, val5);
     }
 
-
-    public long getOrganizationsCount(){
+    public long getOrganizationsCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
         return count;
     }
 
-
     public static String stringSeparator = ", ";
-
     // Used to convert treatments string from database to String[]
-    public static String[] convertStringToArray(String str){
+    public static String[] convertStringToArray(String str) {
         String[] treatments = str.split(stringSeparator);
         return treatments;
     }
