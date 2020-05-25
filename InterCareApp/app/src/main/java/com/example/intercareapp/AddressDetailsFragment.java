@@ -56,11 +56,11 @@ public class AddressDetailsFragment extends Fragment {
         lonTV = rootView.findViewById(R.id.lonTV);
         statusTV = rootView.findViewById(R.id.statusTV);
         backButton = rootView.findViewById(R.id.backToMainButton);
-
         // What to do if the orientation is in portrait mode.
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             intent = this.getActivity().getIntent();
             APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + intent.getStringExtra("organizationAddress");
+
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
                     new Response.Listener<String>() {
@@ -105,57 +105,58 @@ public class AddressDetailsFragment extends Fragment {
             });
             // What to do if the orientation is in landscape mode.
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            OrganizationFragment org = (OrganizationFragment) getFragmentManager().findFragmentByTag("replacedOrganization");
-            // We check if the organization is null before requesting volley to make the API call.
-            // This is because in some cases, when users rotate the device, then the organization might be null and the view is reset.
-            if (org == null) {
-                Intent i = new Intent(getContext(), MainActivity.class);
-                getContext().startActivity(i);
-            } else {
-                // We make the API call and use the information returned from the API to set the details on the different views.
-                // We convert everything from JSON to objects in order to retrieve the data.
-                if (org.getOrganizationAddress() != null) {
-                    APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + org.getOrganizationAddress().getText();
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try {
-                                        JSONObject obj = new JSONObject(response);
-                                        JSONArray obj2 = obj.getJSONArray("results");
-                                        JSONObject obj3 = obj2.getJSONObject(0);
-                                        JSONArray obj4 = obj3.getJSONArray("locations");
-                                        JSONObject obj5 = obj4.getJSONObject(0);
-                                        JSONObject obj6 = obj5.getJSONObject("latLng");
-                                        latTV.setText(obj6.get("lat").toString());
-                                        lonTV.setText(obj6.get("lng").toString());
-                                        streetTV.setText(obj5.get("street").toString());
-                                        municipalityTV.setText(obj5.get("adminArea4").toString());
-                                        regionTV.setText(obj5.get("adminArea3").toString());
-                                        postalCodeTV.setText(obj5.get("postalCode").toString());
-                                        statusTV.setText("Successfully fetched data!");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        statusTV.setText("Unable to fetch data. Please try again later!");
-                                    }
+            // We make the API call and use the information returned from the API to set the details on the different views.
+            // We convert everything from JSON to objects in order to retrieve the data.
+            if (getArguments().getString("addressTransaction") != "") {
+                APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + getArguments().getString("addressTransaction");
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray obj2 = obj.getJSONArray("results");
+                                    JSONObject obj3 = obj2.getJSONObject(0);
+                                    JSONArray obj4 = obj3.getJSONArray("locations");
+                                    JSONObject obj5 = obj4.getJSONObject(0);
+                                    JSONObject obj6 = obj5.getJSONObject("latLng");
+                                    latTV.setText(obj6.get("lat").toString());
+                                    lonTV.setText(obj6.get("lng").toString());
+                                    streetTV.setText(obj5.get("street").toString());
+                                    municipalityTV.setText(obj5.get("adminArea4").toString());
+                                    regionTV.setText(obj5.get("adminArea3").toString());
+                                    postalCodeTV.setText(obj5.get("postalCode").toString());
+                                    statusTV.setText("Successfully fetched data!");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    statusTV.setText("Unable to fetch data. Please try again later!");
                                 }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            statusTV.setText("Unable to fetch data. Please try again later!");
-                        }
-                    });
-                    // We add the request to the RequestQueue.
-                    queue.add(stringRequest);
-                    backButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // We replace the current fragment with the previous one that the user came from.
-                            getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack(null).commit();
-                        }
-                    });
-                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                        statusTV.setText("Unable to fetch data. Please try again later!");
+                    }
+                });
+                // We add the request to the RequestQueue.
+                queue.add(stringRequest);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // We replace the current fragment with the previous one that the user came from.
+                        getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack(null).commit();
+                    }
+                });
+            } else {
+                statusTV.setText("Unable to fetch data. Please try again later!");
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // We replace the current fragment with the previous one that the user came from.
+                        getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new OrganizationFragment(), "replacedOrganization").addToBackStack(null).commit();
+                    }
+                });
             }
         }
         return rootView;

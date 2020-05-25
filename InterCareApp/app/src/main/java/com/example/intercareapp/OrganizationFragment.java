@@ -98,7 +98,15 @@ public class OrganizationFragment extends Fragment {
                 if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     getFragmentManager().beginTransaction().replace(R.id.OrganizationDetailsFragment, new AddressDetailsFragment()).addToBackStack(null).commit();
                 } else if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, new AddressDetailsFragment()).addToBackStack(null).commit();
+                    // We create the new fragment we want to replace the other one.
+                    AddressDetailsFragment fragment = new AddressDetailsFragment();
+                    // We create a bundle, that will contain the needed data we want to transfer.
+                    Bundle arguments = new Bundle();
+                    // We put the arguments into the bundle so we can retrieve them later.
+                    arguments.putString("addressTransaction", getOrganizationAddress().getText().toString());
+                    // We set the argument to the previously created fragment.
+                    fragment.setArguments(arguments);
+                    getFragmentManager().beginTransaction().replace(R.id.organizationDetailsLayoutLand, fragment).addToBackStack(null).commit();
                 }
             }
         });

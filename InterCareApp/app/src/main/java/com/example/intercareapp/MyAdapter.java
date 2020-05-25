@@ -84,11 +84,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 // This fragment is added in MainActivity onCreate(), if the orientation is landscape.
                 // We find it by the tag and set the details.
                 organizationDetailsFragment = (OrganizationFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentByTag("replacedOrganization");
-                organizationDetailsFragment.setOrganizationName(organizationClicked.getName());
-                organizationDetailsFragment.setOrganizationEmail(organizationClicked.getEmail());
-                organizationDetailsFragment.setOrganizationAddress(organizationClicked.getAddress());
-                organizationDetailsFragment.setOrganizationRating(Integer.toString(organizationClicked.getRating()));
-                organizationDetailsFragment.setOrganizationTreatments(organizationClicked.getTreatments());
+                System.out.println(organizationDetailsFragment);
+                // We add a check here that ensures, that the textfields we try to set are actually in the activity.
+                // If one of them is not, then all of them are not and vice-versa, therefore it is enough to check only one view.
+                if (organizationDetailsFragment.getOrganizationAddress() != null) {
+                    organizationDetailsFragment.setOrganizationName(organizationClicked.getName());
+                    organizationDetailsFragment.setOrganizationEmail(organizationClicked.getEmail());
+                    organizationDetailsFragment.setOrganizationAddress(organizationClicked.getAddress());
+                    organizationDetailsFragment.setOrganizationRating(Integer.toString(organizationClicked.getRating()));
+                    organizationDetailsFragment.setOrganizationTreatments(organizationClicked.getTreatments());
+                }
             }
         }
     }
