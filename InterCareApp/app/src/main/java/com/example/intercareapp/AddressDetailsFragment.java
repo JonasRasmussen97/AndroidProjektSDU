@@ -105,11 +105,12 @@ public class AddressDetailsFragment extends Fragment {
             });
             // What to do if the orientation is in landscape mode.
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // We make the API call and use the information returned from the API to set the details on the different views.
-            // We convert everything from JSON to objects in order to retrieve the data.
+            // Used to prevent crash from portrait to landscape mode.
             if (getArguments() != null) {
                 if (getArguments().getString("addressTransaction") != "") {
                     APIurl = "https://www.mapquestapi.com/geocoding/v1/address?key=lewCeujjljEGN6DPdaKt08AxRLX7pA7d&location=" + getArguments().getString("addressTransaction");
+                    // We make the API call and use the information returned from the API to set the details on the different views.
+                    // We convert everything from JSON to objects in order to retrieve the data.
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, APIurl,
                             new Response.Listener<String>() {
                                 @Override

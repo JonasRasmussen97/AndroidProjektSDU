@@ -92,12 +92,14 @@ public class Database extends SQLiteOpenHelper {
             val4 = Integer.parseInt(data.getString(4));
             val5 = convertStringToArray(data.getString(5));
         }
+        db.close();
         return new Organization(val1, val2, val3, val4, val5);
     }
 
     public long getOrganizationsCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        db.close();
         return count;
     }
 

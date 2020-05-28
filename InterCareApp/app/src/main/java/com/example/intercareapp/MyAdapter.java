@@ -43,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.organizationNameText.setText(organizationNamesList.get(position).getName());
         // Here we inject images from an API into the organizationImage view for each element in the recyclerView.
         // This is done through the Glide library.
-        Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/id/" + rand.nextInt(100) + "/500/500")).into(holder.organizationImage);
+        Glide.with(holder.organizationImage.getContext()).load(String.format("https://picsum.photos/id/" + rand.nextInt(50) + "/500/500")).into(holder.organizationImage);
     }
 
     @Override
