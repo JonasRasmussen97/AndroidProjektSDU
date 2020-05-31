@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AndroidProjektSDU.iml" filepath="$PROJECT_DIR$/.idea/AndroidProjektSDU.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InterCareApp.iml" filepath="$PROJECT_DIR$/InterCareApp.iml" group="InterCareApp" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="InterCareApp/app" />
     </modules>
   </component>
 </project>
